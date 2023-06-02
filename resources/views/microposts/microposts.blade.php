@@ -30,6 +30,8 @@
                                 </form>
                             @endif
                         </div>
+                        {{-- フォロー／アンフォローボタン --}}
+                        @include('favorites.favorite_button')
                     </div>
                 </li>
             @endforeach
