@@ -18,6 +18,11 @@
                         <div>
                             {{-- 投稿内容 --}}
                             <p class="mb-0">{!! nl2br(e($micropost->content)) !!}</p>
+                            <div class="sm:grid sm:grid-cols-3 sm:gap-10">
+                                <div class="sm:col-span-2 mt-4">
+                                    <a class="link link-hover text-info" href="{{ route('microposts.show', $micropost->id) }}">Open Reply</a>
+                                </div>
+                            </div>
                         </div>
                         <div>
                             @if (Auth::id() == $micropost->user_id)

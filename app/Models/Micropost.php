@@ -23,4 +23,20 @@ class Micropost extends Model
     {
         return $this->belongsToMany(User::class, 'favorites', 'micropost_id', 'user_id')->withTimestamps();
     }
+    
+    /**
+     * この投稿が保持するスレッド。（ Micropostモデルとの関係を定義）
+     */
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
+    }
+    
+    /**
+     * このユーザに関係するモデルの件数をロードする。
+     */
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount('threads');
+    }
 }

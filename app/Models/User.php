@@ -55,7 +55,7 @@ class User extends Authenticatable
      */
     public function loadRelationshipCounts()
     {
-        $this->loadCount(['microposts', 'followings', 'followers', 'favorites',]);
+        $this->loadCount(['microposts', 'followings', 'followers', 'favorites', 'threads',]);
     }
     /**
      * このユーザがフォロー中のユーザ。（Userモデルとの関係を定義）
@@ -186,5 +186,13 @@ class User extends Authenticatable
     public function is_fav($micropostId)
     {
         return $this->favorites()->where('micropost_id', $micropostId)->exists();
+    }
+    
+    /**
+     * このユーザが所有するスレッド。（ Micropostモデルとの関係を定義）
+     */
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
     }
 }

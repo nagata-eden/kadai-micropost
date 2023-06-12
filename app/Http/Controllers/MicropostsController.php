@@ -59,4 +59,21 @@ class MicropostsController extends Controller
         return back()
             ->with('Delete Failed');
     }
+    
+    public function show($micropostId)
+    {
+        // idの値でユーザを検索して取得
+        $root = Micropost::findOrFail($micropostId);
+        // 関係するモデルの件数をロード
+        $root->loadRelationshipCounts();
+        
+        // ユーザーの投稿一覧を作成日時の降順で取得
+        $threads = $root->threads()->orderBy('created_at', 'desc')->paginate(10);
+
+        // ユーザ詳細ビューでそれを表示
+        return view('threads.open', [
+            'root' => $root,
+            'threads' => $threads,
+        ]);
+    }
 }
